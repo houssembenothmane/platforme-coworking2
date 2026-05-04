@@ -275,3 +275,39 @@
         @endif
     </body>
 </html>
+@extends('layouts.app')
+@section('title', 'CoWork Tunisie - Accueil')
+@section('content')
+<div style="background:linear-gradient(135deg,#1a56db 0%,#7c3aed 100%);color:white;padding:5rem 0">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3"><i class="fas fa-building me-3"></i>CoWork Tunisie</h1>
+        <p class="lead mb-4" style="font-size:1.3rem;opacity:.9">Trouvez et réservez des espaces de travail partagés temporaires</p>
+        <a href="{{ route('espaces.index') }}" class="btn btn-warning btn-lg px-5 me-3"><i class="fas fa-search me-2"></i>Voir les espaces</a>
+        @if(!session('client_id'))
+        <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg px-5"><i class="fas fa-user-plus me-2"></i>S'inscrire</a>
+        @endif
+    </div>
+</div>
+<div class="container my-5">
+    <div class="row g-4 text-center">
+        <div class="col-md-3"><div class="card p-4"><div style="font-size:2.5rem;color:#1a56db"><i class="fas fa-building"></i></div><h3 class="fw-bold mt-2">4+</h3><p class="text-muted mb-0">Espaces disponibles</p></div></div>
+        <div class="col-md-3"><div class="card p-4"><div style="font-size:2.5rem;color:#f59e0b"><i class="fas fa-calendar-check"></i></div><h3 class="fw-bold mt-2">Temps réel</h3><p class="text-muted mb-0">Réservation instantanée</p></div></div>
+        <div class="col-md-3"><div class="card p-4"><div style="font-size:2.5rem;color:#10b981"><i class="fas fa-star"></i></div><h3 class="fw-bold mt-2">Avis vérifiés</h3><p class="text-muted mb-0">Système de notation</p></div></div>
+        <div class="col-md-3"><div class="card p-4"><div style="font-size:2.5rem;color:#8b5cf6"><i class="fas fa-map-marker-alt"></i></div><h3 class="fw-bold mt-2">Google Maps</h3><p class="text-muted mb-0">Carte interactive</p></div></div>
+    </div>
+</div>
+<div style="background:#fff;padding:4rem 0">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Comment ça marche ?</h2>
+        <div class="row g-4">
+            <div class="col-md-4 text-center"><div style="width:64px;height:64px;background:#dbeafe;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem;color:#1a56db">1</div><h5 class="fw-bold">Cherchez un espace</h5><p class="text-muted">Parcourez notre catalogue et filtrez selon vos besoins.</p></div>
+            <div class="col-md-4 text-center"><div style="width:64px;height:64px;background:#fef3c7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem;color:#f59e0b">2</div><h5 class="fw-bold">Réservez en ligne</h5><p class="text-muted">Choisissez date et horaires. Le montant est calculé automatiquement.</p></div>
+            <div class="col-md-4 text-center"><div style="width:64px;height:64px;background:#d1fae5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem;color:#10b981">3</div><h5 class="fw-bold">Laissez un avis</h5><p class="text-muted">Profitez de votre espace et aidez la communauté.</p></div>
+        </div>
+    </div>
+</div>
+<div class="container my-5 text-center">
+    <h3 class="fw-bold mb-3">Prêt à trouver votre espace idéal ?</h3>
+    <a href="{{ route('espaces.index') }}" class="btn btn-primary btn-lg px-5"><i class="fas fa-map-marker-alt me-2"></i>Explorer les espaces</a>
+</div>
+@endsection
