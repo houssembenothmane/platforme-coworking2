@@ -15,7 +15,6 @@ class Client extends Authenticatable
         'nom',
         'email',
         'password',
-        'role',
     ];
 
     protected $hidden = [
@@ -35,15 +34,5 @@ class Client extends Authenticatable
     public function avis()
     {
         return $this->hasMany(Avis::class);
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
-    }
-
-    public function isClient(): bool
-    {
-        return $this->role === 'client';
     }
 }
