@@ -32,7 +32,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 // ============ API sièges occupés ============
 Route::get('/api/seats-occupied', function (\Illuminate\Http\Request $request) {
-    $occupied = \App\Models\Reservation::where('espace_id', $request->espace_id)
+    $occupied = \App\Models\Reservation::where('IdEspace', $request->espace_id)
         ->where('date', $request->date)
         ->where('statut', '!=', 'Annulée')
         ->where(function ($q) use ($request) {

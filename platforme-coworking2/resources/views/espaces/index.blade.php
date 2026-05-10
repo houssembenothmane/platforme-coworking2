@@ -86,11 +86,11 @@
                         <span class="text-muted small ms-1">{{ $note }}/5 ({{ $espace->avis_count }} avis)</span>
                     </div>
                     <div class="mt-auto d-flex gap-2">
-                        <a href="{{ route('espaces.show', $espace->id) }}" class="btn btn-outline-primary flex-fill">
+                        <a href="{{ route('espaces.show', $espace->IdEspace) }}" class="btn btn-outline-primary flex-fill">
                             <i class="fas fa-eye me-1"></i>Détails
                         </a>
                         @if($espace->statut == 'Disponible')
-                        <a href="{{ auth('client')->check() ? route('reservations.create', $espace->id) : route('login') }}" class="btn btn-primary flex-fill">
+                        <a href="{{ auth('client')->check() ? route('reservations.create', $espace->IdEspace) : route('login') }}" class="btn btn-primary flex-fill">
                             <i class="fas fa-calendar-plus me-1"></i>Réserver
                         </a>
                         @endif

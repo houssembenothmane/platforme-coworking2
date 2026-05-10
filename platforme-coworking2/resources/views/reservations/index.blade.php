@@ -36,11 +36,11 @@
                         <strong>{{ number_format($reservation->montant, 2) }} TND</strong>
                     </div>
                     <div class="mt-auto d-flex gap-2">
-                        <a href="{{ route('reservations.show', $reservation->id) }}" class="btn btn-outline-primary flex-fill">
+                        <a href="{{ route('reservations.show', $reservation->IdReservation) }}" class="btn btn-outline-primary flex-fill">
                             <i class="fas fa-eye me-1"></i>Détails
                         </a>
                         @if($reservation->statut == 'En attente')
-                        <form action="{{ route('reservations.destroy', $reservation->id) }}" method="POST" class="flex-fill">
+                        <form action="{{ route('reservations.destroy', $reservation->IdReservation) }}" method="POST" class="flex-fill">
                             @csrf @method('DELETE')
                             <button class="btn btn-outline-danger w-100" onclick="return confirm('Annuler cette réservation ?')">
                                 <i class="fas fa-times me-1"></i>Annuler

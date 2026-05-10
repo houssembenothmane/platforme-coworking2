@@ -39,21 +39,21 @@ class EspaceController extends Controller
     $espaces = \App\Models\Espace::all();
 
     $occupiedIds = \App\Models\Reservation::where('date', $today)
-        ->where('heure_debut', '<=', $now->format('H:i:s'))
-        ->where('heure_fin',   '>=', $now->format('H:i:s'))
-        ->where('statut', '!=', 'Annulée')
-        ->pluck('espace_id')->toArray();
+    ->where('heure_debut', '<=', $now->format('H:i:s'))
+    ->where('heure_fin',   '>=', $now->format('H:i:s'))
+    ->where('statut', '!=', 'Annulée')
+    ->pluck('IdEspace')->toArray();  // ← espace_id → IdEspace
 
-    $soonIds = \App\Models\Reservation::where('date', $today)
-        ->where('heure_debut', '>',  $now->format('H:i:s'))
-        ->where('heure_debut', '<=', $now->copy()->addHour()->format('H:i:s'))
-        ->where('statut', '!=', 'Annulée')
-        ->pluck('espace_id')->toArray();
+$soonIds = \App\Models\Reservation::where('date', $today)
+    ->where('heure_debut', '>',  $now->format('H:i:s'))
+    ->where('heure_debut', '<=', $now->copy()->addHour()->format('H:i:s'))
+    ->where('statut', '!=', 'Annulée')
+    ->pluck('IdEspace')->toArray();  // ← espace_id → IdEspace
 
-    $myReservation = null;
-    if (auth('client')->check()) {
-        $myReservation = \App\Models\Reservation::with('espace')
-            ->where('client_id', auth('client')->id())
+$myReservation = null;
+if (auth('client')->check()) {
+    $myReservation = \App\Models\Reservation::with('espace')
+        ->where('IdClient', auth('client')->user()->IdClient)  // ← client_id → IdClient
             ->where('date', $today)
             ->where('heure_fin', '>=', $now->format('H:i:s'))
             ->where('statut', '!=', 'Annulée')

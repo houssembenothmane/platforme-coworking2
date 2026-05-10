@@ -7,15 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Espace extends Model
 {
     protected $table = 'espaces';
+    protected $primaryKey = 'IdEspace';
 
     protected $fillable = [
-        'nom',
-        'description',
-        'prix_heure',
-        'capacite',
-        'statut',
-        'latitude',
-        'longitude',
+        'nom', 'description', 'prix_heure',
+        'capacite', 'statut', 'latitude', 'longitude',
     ];
 
     protected $casts = [
@@ -26,12 +22,12 @@ class Espace extends Model
 
     public function reservations()
     {
-        return $this->hasMany(Reservation::class);
+        return $this->hasMany(Reservation::class, 'IdEspace', 'IdEspace');
     }
 
     public function avis()
     {
-        return $this->hasMany(Avis::class);
+        return $this->hasMany(Avis::class, 'IdEspace', 'IdEspace');
     }
 
     public function estDisponible(): bool

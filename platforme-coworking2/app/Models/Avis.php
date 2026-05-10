@@ -7,14 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Avis extends Model
 {
     protected $table = 'avis';
+    protected $primaryKey = 'IdAvis';
 
     protected $fillable = [
-        'client_id',
-        'espace_id',
-        'note',
-        'commentaire',
-        'sentiment',
-        'sentiment_score'
+        'IdClient', 'IdEspace',
+        'note', 'commentaire',
     ];
 
     protected $casts = [
@@ -23,12 +20,11 @@ class Avis extends Model
 
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class, 'IdClient', 'IdClient');
     }
 
     public function espace()
     {
-        return $this->belongsTo(Espace::class);
+        return $this->belongsTo(Espace::class, 'IdEspace', 'IdEspace');
     }
-   
 }

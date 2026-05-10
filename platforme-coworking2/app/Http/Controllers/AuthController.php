@@ -27,7 +27,6 @@ class AuthController extends Controller
         if (auth('client')->attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
 
-            // ✅ Redirection selon le rôle
             if (auth('client')->user()->isAdmin()) {
                 return redirect('/admin/dashboard')
                     ->with('success', 'Bienvenue Admin !');

@@ -54,7 +54,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="fw-bold mb-0"><i class="fas fa-star me-2 text-warning"></i>Avis clients ({{ $espace->avis->count() }})</h5>
                     @if(auth('client')->check())
-                    <a href="{{ route('avis.create', $espace->id) }}" class="btn btn-sm btn-outline-warning">
+                    <a href="{{ route('avis.create', $espace->IdEspace) }}" class="btn btn-sm btn-outline-warning">
                         <i class="fas fa-plus me-1"></i>Laisser un avis
                     </a>
                     @endif
@@ -97,7 +97,7 @@
                 <h5 class="fw-bold mb-3">Réserver cet espace</h5>
                 @if($espace->statut == 'Disponible')
                     @if(auth('client')->check())
-                    <a href="{{ route('reservations.create', $espace->id) }}" class="btn btn-primary btn-lg w-100 mb-3">
+                    <a href="{{ route('reservations.create', $espace->IdEspace) }}" class="btn btn-primary btn-lg w-100 mb-3">
                         <i class="fas fa-calendar-plus me-2"></i>Réserver maintenant
                     </a>
                     @else

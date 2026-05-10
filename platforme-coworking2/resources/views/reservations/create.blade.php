@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-2" style="background:none;padding:0">
                 <li class="breadcrumb-item"><a href="{{ route('espaces.index') }}" style="color:rgba(255,255,255,.8)">Espaces</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('espaces.show', $espace->id) }}" style="color:rgba(255,255,255,.8)">{{ $espace->nom }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('espaces.show', $espace->IdEspace) }}" style="color:rgba(255,255,255,.8)">{{ $espace->nom }}</a></li>
                 <li class="breadcrumb-item active text-white">Réservation</li>
             </ol>
         </nav>
@@ -49,7 +49,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('reservations.store') }}">
                         @csrf
-                        <input type="hidden" name="espace_id" value="{{ $espace->id }}">
+                        <input type="hidden" name="espace_id" value="{{ $espace->IdEspace }}">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="date" class="form-label">Date *</label>
@@ -92,7 +92,7 @@
 </div>
 
 <script>
-const espaceId = {{ $espace->id }};
+const espaceId = {{ $espace->IdEspace }};
 const totalSeats = {{ $espace->capacite }};
 const dateInput = document.querySelector('input[name="date"]');
 const hdInput = document.querySelector('input[name="heure_debut"]');
@@ -154,7 +154,7 @@ window.addEventListener('load', loadSeats);
                             <button type="submit" class="btn btn-primary btn-lg">
                                 <i class="fas fa-calendar-check me-2"></i>Réserver maintenant
                             </button>
-                            <a href="{{ route('espaces.show', $espace->id) }}" class="btn btn-outline-secondary btn-lg ms-2">
+                            <a href="{{ route('espaces.show', $espace->IdEspace) }}" class="btn btn-outline-secondary btn-lg ms-2">
                                 <i class="fas fa-arrow-left me-2"></i>Retour
                             </a>
                         </div>

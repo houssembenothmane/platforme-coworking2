@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('avis.store') }}">
                         @csrf
-                        <input type="hidden" name="espace_id" value="{{ $espace->id }}">
+                        <input type="hidden" name="espace_id" value="{{ $espace->IdEspace }}">
                         <div class="mb-3">
                             <label class="form-label">Note *</label>
                             <div class="rating">
@@ -36,7 +36,7 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-paper-plane me-2"></i>Publier l'avis
                             </button>
-                            <a href="{{ route('espaces.show', $espace->id) }}" class="btn btn-outline-secondary">
+                            <a href="{{ route('espaces.show', $espace->IdEspace) }}" class="btn btn-outline-secondary">
                                 <i class="fas fa-arrow-left me-2"></i>Annuler
                             </a>
                         </div>

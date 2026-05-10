@@ -30,7 +30,7 @@ class ClientController extends Controller
         $client = auth('client')->user();
         $request->validate([
             'nom'   => 'required|min:2|max:80',
-            'email' => 'required|email|unique:clients,email,' . $client->id,
+            'email' => 'required|email|unique:clients,email,' . $client->IdClient,
         ], [
             'nom.required'   => 'Le nom est obligatoire.',
             'email.required' => 'L\'email est obligatoire.',

@@ -7,16 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     protected $table = 'reservations';
+    protected $primaryKey = 'IdReservation';
 
     protected $fillable = [
-        'client_id',
-        'espace_id',
-        'date',
-        'heure_debut',
-        'heure_fin',
-        'statut',
-        'montant',
-        'numero_siege',
+        'IdClient', 'IdEspace',
+        'date', 'heure_debut', 'heure_fin',
+        'statut', 'montant', 'numero_siege',
     ];
 
     protected $casts = [
@@ -26,18 +22,18 @@ class Reservation extends Model
 
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class, 'IdClient', 'IdClient');
     }
 
     public function espace()
     {
-        return $this->belongsTo(Espace::class);
+        return $this->belongsTo(Espace::class, 'IdEspace', 'IdEspace');
     }
 
     public function genererFacture(): array
     {
         return [
-            'numero'      => 'FACT-' . str_pad($this->id, 6, '0', STR_PAD_LEFT),
+            'numero'      => 'FACT-' . str_pad($this->IdReservation, 6, '0', STR_PAD_LEFT),
             'date'        => $this->date->format('d/m/Y'),
             'client'      => $this->client?->nom,
             'espace'      => $this->espace?->nom,

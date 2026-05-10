@@ -25,20 +25,20 @@ $espacesByName = $espaces->keyBy('nom');
 $getStatus = function($espace) use ($occupiedIds, $soonIds) {
     if (!$espace) return ['fill' => '#e2e8f0', 'stroke' => '#94a3b8', 'label' => 'N/A'];
     if ($espace->statut === 'Indisponible')  return ['fill' => '#94a3b8', 'stroke' => '#475569', 'label' => 'Indisponible'];
-    if (in_array($espace->id, $occupiedIds)) return ['fill' => '#ef4444', 'stroke' => '#b91c1c', 'label' => 'Occupée'];
-    if (in_array($espace->id, $soonIds))     return ['fill' => '#f59e0b', 'stroke' => '#b45309', 'label' => 'Bientôt'];
+    if (in_array($espace->IdEspace, $occupiedIds)) return ['fill' => '#ef4444', 'stroke' => '#b91c1c', 'label' => 'Occupée'];
+    if (in_array($espace->IdEspace, $soonIds))     return ['fill' => '#f59e0b', 'stroke' => '#b45309', 'label' => 'Bientôt'];
     return ['fill' => '#22c55e', 'stroke' => '#15803d', 'label' => 'Disponible'];
 };
 
 $counts = ['libre' => 0, 'occupe' => 0, 'bientot' => 0, 'indispo' => 0];
 foreach ($espaces as $e) {
     if ($e->statut === 'Indisponible')      $counts['indispo']++;
-    elseif (in_array($e->id, $occupiedIds)) $counts['occupe']++;
-    elseif (in_array($e->id, $soonIds))     $counts['bientot']++;
+    elseif (in_array($e->IdEspace, $occupiedIds)) $counts['occupe']++;
+    elseif (in_array($e->IdEspace, $soonIds))     $counts['bientot']++;
     else                                    $counts['libre']++;
 }
 
-$myEspaceId = $myReservation?->espace_id;
+$myEspaceId = $myReservation?->IdEspace;
 
 $myPathD = '';
 if ($myReservation) {
@@ -134,13 +134,13 @@ if ($myReservation) {
                             $status = $getStatus($espace);
                             $cx = $room['x'] + $room['w'] / 2;
                             $cy = $room['y'] + $room['h'] / 2;
-                            $isMine = $espace && $myEspaceId === $espace->id;
+                            $isMine = $espace && $myEspaceId === $espace->IdEspace;
                             $shortName = trim(explode('–', $room['name'])[1] ?? $room['name']);
                             $statusOpacity = $isMine ? 0.45 : 0.15;
                         @endphp
 
                         <g class="room-group" style="cursor:pointer;"
-                           @if($espace) onclick="window.location='{{ route('espaces.show', $espace->id) }}'" @endif>
+                           @if($espace) onclick="window.location='{{ route('espaces.show', $espace->IdEspace) }}'" @endif>
 
                             {{-- Sol de la salle (blanc) --}}
                             <rect x="{{ $room['x'] }}" y="{{ $room['y'] }}" width="{{ $room['w'] }}" height="{{ $room['h'] }}"
