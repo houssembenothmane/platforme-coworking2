@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -46,4 +47,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function isAdmin(): bool
+{
+    return $this->role === 'admin';
+}
+
+public function isClient(): bool
+{
+    return $this->role === 'client';
+}
 }

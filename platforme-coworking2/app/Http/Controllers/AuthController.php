@@ -26,6 +26,13 @@ class AuthController extends Controller
 
         if (auth('client')->attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
+
+            // ✅ Redirection selon le rôle
+            if (auth('client')->user()->isAdmin()) {
+                return redirect('/admin/dashboard')
+                    ->with('success', 'Bienvenue Admin !');
+            }
+
             return redirect()->route('espaces.index')
                 ->with('success', 'Bienvenue ' . auth('client')->user()->nom . ' !');
         }
@@ -55,7 +62,6 @@ class AuthController extends Controller
             'password.confirmed' => 'Les mots de passe ne correspondent pas.',
         ]);
 
-        // Pas besoin de Hash::make — le cast 'password' => 'hashed' du modèle s'en charge
         $client = Client::create([
             'nom'      => $request->nom,
             'email'    => $request->email,

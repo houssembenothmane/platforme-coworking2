@@ -1,13 +1,13 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Reservation;
+use App\Models\Espace;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-
     public function index()
     {
         $clients = Client::withCount(['reservations', 'avis'])->get();
@@ -28,7 +28,6 @@ class ClientController extends Controller
     public function updateProfil(Request $request)
     {
         $client = auth('client')->user();
-
         $request->validate([
             'nom'   => 'required|min:2|max:80',
             'email' => 'required|email|unique:clients,email,' . $client->id,
@@ -42,23 +41,28 @@ class ClientController extends Controller
 
         if ($request->filled('password')) {
             $request->validate(['password' => 'min:6|confirmed']);
-            $data['password'] = $request->password; // hashé automatiquement
+            $data['password'] = $request->password;
         }
 
         $client->update($data);
-
         return redirect()->route('profil')->with('success', 'Profil mis à jour !');
     }
-    public function adminDashboard()
-{
-    $totalClients      = \App\Models\Client::count();
-    $totalReservations = \App\Models\Reservation::count();
-    $totalEspaces      = \App\Models\Espace::count();
 
-    return view('admin.dashboard', compact(
-        'totalClients',
-        'totalReservations',
-        'totalEspaces'
-    ));
-}
-}
+    public function adminDashboard()
+    {
+        $totalClients      = Client::count();
+        $totalReservations = Reservation::count();
+        $totalEspaces      = Espace::count();
+        return view('admin.dashboard', compact(
+            'totalClients',
+            'totalReservations',
+            'totalEspaces'
+        ));
+    }                          // ← accolade fermante de adminDashboard
+
+    public function destroy($id)
+    {
+        Client::findOrFail($id)->delete();
+        return redirect()->route('admin.clients.index')->with('success', 'Client supprimé.');
+    }
+}                              // ← accolade fermante de la classe
